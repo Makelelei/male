@@ -17,13 +17,11 @@ fetch('countries.geo.json')
         weight: 1,
         fillColor: '#66ccff',
         fillOpacity: 0.5,
-        // Forzar cursor flecha aquí es mejor hacerlo con CSS, pero lo puedes intentar también aquí:
-        // interactive: true // ya está activado por defecto
       },
       onEachFeature: (feature, layer) => {
         const name = feature.properties.ADMIN || "País desconocido";
 
-        // Bind tooltip que aparece al pasar el mouse, desplazado afuera
+        // Tooltip con nombre al pasar el cursor
         layer.bindTooltip(name, {
           direction: 'top',
           offset: [0, -10],
@@ -47,17 +45,15 @@ fetch('countries.geo.json')
           fillOpacity: 0.7
         };
 
-        // Evento mouseover: cambiar estilo para resaltar
+        // Al pasar el mouse, cambia el estilo para resaltar
         layer.on('mouseover', function () {
           this.setStyle(highlightStyle);
         });
 
-        // Evento mouseout: volver al estilo normal
+        // Al quitar el mouse, vuelve al estilo base
         layer.on('mouseout', function () {
           this.setStyle(defaultStyle);
         });
-
-        // Evitar que el cursor cambie a manito: podemos forzar el cursor con CSS
       }
     }).addTo(map);
   });
